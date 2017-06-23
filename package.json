@@ -4,14 +4,17 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "build": "babel src/app.js --out-file lib/app.js",
-    "start": "babel-node server.js",
+    "build": "browserify src/app.js -t babelify --outfile lib/app.js",
+    "start": "npm run build && npm run server",
+    "server": "babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel": "^6.23.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
     "express": "^4.15.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"

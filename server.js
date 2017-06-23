@@ -14,11 +14,24 @@ app.get('/application.js', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.send(content);
+  res.send(`
+    <html>
+      <head>
+        <script src="./application.js"></script>
+      </head>
+      <body>
+        <div id="app">${content}</div>
+        <script>
+          (function() {
+            var el = document.getElementById('app');
+            ReactDOM.render(React.createElement(App), el);
+          })();
+        </script>
+      </body>
+    </html>
+  `);
 });
 
 app.listen(3000);
 
 console.log('RUNNING');
-
-// ReactDOM.render(<App showNavbar={true} />, document.body);
