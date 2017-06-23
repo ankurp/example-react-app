@@ -4,7 +4,8 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "start": "babel-node test.js",
+    "build": "babel src/app.js --out-file lib/app.js",
+    "start": "babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
