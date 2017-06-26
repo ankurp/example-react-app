@@ -41,9 +41,8 @@ class App extends React.Component {
 }
 
 if (typeof window !== 'undefined') {
-  window.App = App;
-  window.React = React;
-  window.ReactDOM = ReactDOM;
+  ReactDOM.render(<App {...window.__INITIAL_STATE__} />,
+    document.getElementById('app'));
 }
 
 module.exports = App;

@@ -4,8 +4,7 @@ const express = require('express');
 const App = require('./src/app');
 const readFileSync = require('fs').readFileSync;
 
-const content = ReactDOMServer.renderToString(<App />);
-
+const PORT = 3000;
 const app = express();
 const file = readFileSync(`${__dirname}/lib/app.js`);
 
@@ -14,24 +13,20 @@ app.get('/application.js', (req, res) => {
 });
 
 app.get('*', (req, res) => {
+  const initialState = {};
+  const content = ReactDOMServer.renderToString(<App {...initialState} />);
+
   res.send(`
     <html>
-      <head>
-        <script src="./application.js"></script>
-      </head>
       <body>
         <div id="app">${content}</div>
-        <script>
-          (function() {
-            var el = document.getElementById('app');
-            ReactDOM.render(React.createElement(App), el);
-          })();
-        </script>
+        <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
+        <script src="./application.js"></script>
       </body>
     </html>
   `);
 });
 
-app.listen(3000);
-
-console.log('RUNNING');
+app.listen(PORT, () => {
+  console.log(`RUNNING on port ${PORT}`);
+});
